@@ -4,8 +4,7 @@ import UIKit
 
 
 
-// TODO: Имена
-class HomeWorkClass<T: Equatable> {
+class UniqGeneric<T: Equatable> {
     
     var count: Int = 0
     var array: [T]
@@ -14,37 +13,33 @@ class HomeWorkClass<T: Equatable> {
         self.array = array
     }
     
-    // TODO: Название
-    func addToArray(newElement: T) {
+    func push(newElement: T) {
         var isHere = false
         for el in array {
             if el == newElement {
-                // TODO: Выпрыгивать, без bool
-                isHere = true
+                return
             }
         }
-        if !isHere {
             array.append(newElement)
-        }
     }
     
     func removeFromArray(newElement: T) {
         array = array.filter() { $0 != newElement }
     }
     
-    // TODO: isContais
-    func isElementHere(newElement: T) -> Bool {
+    func isContains(newElement: T) -> Bool {
         if find(array, newElement) == nil {
             return false
         }
         return true
     }
     
-    // TODO: (T -> U) -> [U]
-    func map(function: T -> T) {
-        for index in 0..<array.count {
-            array[index] = function(array[index])
+    func map<U>(function: T -> U) -> [U] {
+        var newArray: [U] = []
+        for el in array {
+            newArray.append(function(el))
         }
+        return newArray
     }
 }
 
@@ -52,20 +47,19 @@ class HomeWorkClass<T: Equatable> {
 //    return (lhs.count == rhs.count)
 //}
 
-extension HomeWorkClass {
+extension UniqGeneric {
     var deleteAllElements:() {
         return self.array.removeAll(keepCapacity: false)
     }
 }
 
-var homeClass = HomeWorkClass<Int>([])
-var classHome = HomeWorkClass<Int>([1, 2, 3, 4, 5])
-
+var homeClass = UniqGeneric<Int>([])
 
 homeClass.count = 5;
 homeClass.array = [1, 2, 3, 4, 5, 6, 7, 7]
-homeClass.isElementHere(5)
-homeClass.isElementHere(9)
+homeClass.push(8)
+homeClass.isContains(5)
+homeClass.isContains(9)
 homeClass.map(
     { $0 * 2} )
 
