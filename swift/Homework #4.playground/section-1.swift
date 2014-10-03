@@ -6,11 +6,13 @@ import UIKit
 
 class UniqGeneric<T: Equatable> {
     
-    var count: Int = 0
-    var array: [T]
+    var count: Int { return array.count }
+    var array: [T] = []
     
-    init(_ array: [T]) {
-        self.array = array
+    required init(_ array: [T]) {
+        for el in array {
+            push(el)
+        }
     }
     
     func push(newElement: T) {
@@ -53,9 +55,14 @@ extension UniqGeneric {
     }
 }
 
+extension UniqGeneric: ArrayLiteralConvertible {
+    class func convertFromArrayLiteral(elements: T...) -> Self {
+        return self(elements)
+    }
+}
+
 var homeClass = UniqGeneric<Int>([])
 
-homeClass.count = 5;
 homeClass.array = [1, 2, 3, 4, 5, 6, 7, 7]
 homeClass.push(8)
 homeClass.isContains(5)
@@ -63,7 +70,10 @@ homeClass.isContains(9)
 homeClass.map(
     { $0 * 2} )
 
+var newClass: UniqGeneric<Int> = [1, 2, 2, 3]
 
+
+5
 
 
 
