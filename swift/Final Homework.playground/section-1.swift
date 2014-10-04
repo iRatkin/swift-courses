@@ -29,14 +29,15 @@ class Aes: Life {
         isWork = true
     }
     
-    // TODO: - Вызывать NewDay
-    // TODO: - reduce/map
     func newDay() {
         lastDayValues = 0;
-        if isWork {
-            counters.map { self.lastDayValues += $0.totalEnergy }
-            counters.map { $0.newDay() }
-            }
+        if !isWork {
+            return
+        }
+        
+        lastDayValues = counters.reduce(0, combine: { $0 + $1.totalEnergy })
+        counters.map { $0.newDay() }
+        
         clearWrongCounters()
     }
     
@@ -48,9 +49,15 @@ class Aes: Life {
 class Counter: Life {
     
     private var health: Int = 0
-    // TODO: Где подсчет?
     var energyToday: (Int -> Int)?
-    var totalEnergy:Int { return energyToday!(health) }
+    
+    var totalEnergy: Int {
+        if let funct = energyToday {
+            return funct(health)
+        }
+            
+        return 0
+    }
     
     init (a: (Int -> Int)?) {
         energyToday = a
@@ -61,8 +68,15 @@ class Counter: Life {
     }
 }
 
+var arr = [1, 2, 3, 4]
 
-8
+var count = 1
+arr.map() { count *= $0 }
+
+count
+
+var newCount =
+arr.reduce(1, combine: { $0 * $1 })
 
 
 
