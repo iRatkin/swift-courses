@@ -34,10 +34,9 @@ class Aes: Life {
     func newDay() {
         lastDayValues = 0;
         if isWork {
-            for counter in counters {
-                lastDayValues += counter.health
+            counters.map { self.lastDayValues += $0.totalEnergy }
+            counters.map { $0.newDay() }
             }
-        }
         clearWrongCounters()
     }
     
@@ -51,14 +50,19 @@ class Counter: Life {
     private var health: Int = 0
     // TODO: Где подсчет?
     var energyToday: (Int -> Int)?
+    var totalEnergy:Int { return energyToday!(health) }
+    
+    init (a: (Int -> Int)?) {
+        energyToday = a
+    }
     
     func newDay() {
         health -= 1
     }
 }
 
-4
 
+8
 
 
 
