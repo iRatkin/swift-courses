@@ -25,7 +25,7 @@ class UniqGeneric<T: Equatable> {
             array.append(newElement)
     }
     
-    func removeFromArray(newElement: T) {
+    func remove(newElement: T) {
         array = array.filter() { $0 != newElement }
     }
     
@@ -64,6 +64,8 @@ extension UniqGeneric: ArrayLiteralConvertible {
 var homeClass = UniqGeneric<Int>([])
 
 homeClass.array = [1, 2, 3, 4, 5, 6, 7, 7]
+homeClass.remove(2)
+homeClass
 homeClass.push(8)
 homeClass.isContains(5)
 homeClass.isContains(9)
