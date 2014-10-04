@@ -25,12 +25,12 @@ class Aes: Life {
         isWork = false
     }
     
-    // TODO: - при возвращении из метода ничего не пишем. Исправить везде
     func startWorking() {
         isWork = true
     }
     
-    // TODO: - Поменять показатели, никаких -= 1
+    // TODO: - Вызывать NewDay
+    // TODO: - reduce/map
     func newDay() {
         lastDayValues = 0;
         if isWork {
@@ -41,17 +41,16 @@ class Aes: Life {
         clearWrongCounters()
     }
     
-    // TODO: - Tip: использую filter
     private func clearWrongCounters() {
-                array.filter ({ $0 >= 1 })
-            }
+        counters.filter ({ $0.health >= 1 })
+    }
 }
 
 class Counter: Life {
     
     private var health: Int = 0
-    // TODO: Где замыкание?
-    var energyToday: Int -> Int
+    // TODO: Где подсчет?
+    var energyToday: (Int -> Int)?
     
     func newDay() {
         health -= 1
