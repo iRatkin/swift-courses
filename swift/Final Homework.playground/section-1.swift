@@ -4,7 +4,7 @@ import UIKit
 
 
 protocol Life {
-    func newDay() -> ()
+    func newDay()
 }
 
 protocol stationControl {
@@ -12,7 +12,7 @@ protocol stationControl {
     var counterHealth: [Int] { get }
     var isWork: Bool { get }
 
-    func resetCurrent() -> ()
+    func resetCurrent()
     func addCounter(counter: Counter) -> ()
 }
 
@@ -26,51 +26,39 @@ class Aes: Life {
     }
     
     // TODO: - при возвращении из метода ничего не пишем. Исправить везде
-    func startWorking() -> () {
+    func startWorking() {
         isWork = true
     }
     
     // TODO: - Поменять показатели, никаких -= 1
-    func newDay() -> () {
+    func newDay() {
+        lastDayValues = 0;
         if isWork {
             for counter in counters {
-                counter.health -= 1
+                lastDayValues += counter.health
             }
         }
         clearWrongCounters()
     }
     
     // TODO: - Tip: использую filter
-    private func clearWrongCounters() -> () {
-        for i in 0..<counters.count {
-            if counters[i].health < 1 {
-                counters.removeAtIndex(i)
+    private func clearWrongCounters() {
+                array.filter ({ $0 >= 1 })
             }
-        }
-    }
-    
-    
 }
 
 class Counter: Life {
     
     private var health: Int = 0
     // TODO: Где замыкание?
-    var energyToday: Int { return energyThisDay(health) }
-
+    var energyToday: Int -> Int
     
-    func energyThisDay (health: Int) -> Int {
-        return health * health + 5
-    }
-    
-    func newDay() -> () {
+    func newDay() {
         health -= 1
     }
 }
 
-
-
-
+4
 
 
 
