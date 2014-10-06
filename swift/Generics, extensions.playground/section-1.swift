@@ -137,7 +137,7 @@ class Cat {
 var cat = Cat("Murzik")
 cat.host = "Alex"
 cat.host = "Ivan"
-
+7
 
 
 

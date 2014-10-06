@@ -47,20 +47,13 @@ class Aes: Life {
 }
 
 class Counter: Life {
-    
-    private var health: Int = 0
+    private var health: Int = 20;
     var energyToday: (Int -> Int)?
-    
     var totalEnergy: Int {
         if let funct = energyToday {
             return funct(health)
         }
-            
         return 0
-    }
-    
-    init (a: (Int -> Int)?) {
-        energyToday = a
     }
     
     func newDay() {
@@ -68,15 +61,64 @@ class Counter: Life {
     }
 }
 
-var arr = [1, 2, 3, 4]
+class AESCenter: stationControl {
+    
+    var lastWorkers: Int = 0
+    var numberOfWorkers: Int = 0 {
+        willSet {
+            if lastWorkers > numberOfWorkers {
+                "count of workers decreases"
+            }
+        }
+        didSet {
+            if (numberOfWorkers < AES.counters.count ) {
+                AES.storWorking()
+                "Need \(AES.counters.count - numberOfWorkers) workers"
+                lastWorkers = numberOfWorkers
+            }
+        }
+    }
+    
+    required init (_ workers: Int	) {
+        numberOfWorkers = workers
+    }
+    
+    private var AES = Aes()
+    var currentPeriodEnergy: Int = 0
+    var counterHealth: [Int] = []
+    var isWork: Bool = true
+    
+    func resetCurrent() {
+        AES.lastDayValues = 0;
+    }
+    
+    func addCounter(counter: Counter) {
+        AES.counters.append(counter)
+    }
+    
+    subscript(index: Int) -> Counter? {
+        if (index < AES.counters.count) {
+            return AES.counters[index]
+        }
+            return nil
+    }
+}
 
-var count = 1
-arr.map() { count *= $0 }
 
-count
 
-var newCount =
-arr.reduce(1, combine: { $0 * $1 })
+extension AESCenter: IntegerLiteralConvertible {
+    class func convertFromIntegerLiteral(el: IntegerLiteralType) -> Self {
+        return self(el)
+    }
+}
+
+var aes: AESCenter = 5
+aes.AES
+aes.addCounter(Counter())
+aes[0]
+aes[1]
+
+17
 
 
 
