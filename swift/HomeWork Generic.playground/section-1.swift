@@ -16,8 +16,11 @@ class UniqContainer<T: Equatable> {
     
     
     // TODO: - рассматривать ситуацию, когда контейнер пустой
-    func pop() -> T {
-        return container.removeLast()
+    func pop() -> T? {
+        if container.last != nil {
+            return container.removeLast()
+        }
+        return nil
     }
 }
 

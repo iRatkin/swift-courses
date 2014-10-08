@@ -63,10 +63,9 @@ class Counter: Life {
 
 class AESCenter: StationControl {
     
-    var lastWorkers: Int = 0
     // TODO: - Без lastWorkers
     var numberOfWorkers: Int = 0 {
-        willSet {
+        willSet(lastWorkers) {
             if lastWorkers > numberOfWorkers {
                 "count of workers decreases"
             }
@@ -75,7 +74,6 @@ class AESCenter: StationControl {
             if (numberOfWorkers < AES.counters.count ) {
                 AES.storWorking()
                 "Need \(AES.counters.count - numberOfWorkers) workers"
-                lastWorkers = numberOfWorkers
             }
         }
     }
@@ -86,8 +84,16 @@ class AESCenter: StationControl {
     
     private var AES = Aes()
     // TODO - исправить остальыне 2 свойства
-    var currentPeriodEnergy: Int = 0
-    var counterHealth: [Int] = []
+    var currentPeriodEnergy: Int {
+        return AES.lastDayValues
+    }
+     var counterHealth: [Int] {
+        var array:[Int] = []
+        for counter in AES.counters {
+            array.append(counter.health)
+            }
+            return array
+    }
     var isWork: Bool {
         return AES.isWork
     }
@@ -121,8 +127,10 @@ aes.AES
 aes.addCounter(Counter())
 aes[0]
 aes[1]
-
-17
+aes.numberOfWorkers = 0
+aes.numberOfWorkers = 1
+aes.numberOfWorkers = 0
+19
 
 
 
