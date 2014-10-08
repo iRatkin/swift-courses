@@ -7,7 +7,7 @@ protocol Life {
     func newDay()
 }
 
-protocol stationControl {
+protocol StationControl {
     var currentPeriodEnergy: Int { get }
     var counterHealth: [Int] { get }
     var isWork: Bool { get }
@@ -47,7 +47,7 @@ class Aes: Life {
 }
 
 class Counter: Life {
-    private var health: Int = 20;
+    var health: Int = 20;
     var energyToday: (Int -> Int)?
     var totalEnergy: Int {
         if let funct = energyToday {
@@ -61,9 +61,10 @@ class Counter: Life {
     }
 }
 
-class AESCenter: stationControl {
+class AESCenter: StationControl {
     
     var lastWorkers: Int = 0
+    // TODO: - Без lastWorkers
     var numberOfWorkers: Int = 0 {
         willSet {
             if lastWorkers > numberOfWorkers {
@@ -79,14 +80,17 @@ class AESCenter: stationControl {
         }
     }
     
-    required init (_ workers: Int	) {
+    required init (_ workers: Int) {
         numberOfWorkers = workers
     }
     
     private var AES = Aes()
+    // TODO - исправить остальыне 2 свойства
     var currentPeriodEnergy: Int = 0
     var counterHealth: [Int] = []
-    var isWork: Bool = true
+    var isWork: Bool {
+        return AES.isWork
+    }
     
     func resetCurrent() {
         AES.lastDayValues = 0;
@@ -100,7 +104,7 @@ class AESCenter: stationControl {
         if (index < AES.counters.count) {
             return AES.counters[index]
         }
-            return nil
+        return nil
     }
 }
 

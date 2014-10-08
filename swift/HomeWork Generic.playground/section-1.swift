@@ -3,7 +3,7 @@
 import UIKit
 
 class UniqContainer<T: Equatable> {
-    var container: [T] = []
+    private var container: [T] = []
     
     func push(newEl: T) {
         for el in container {
@@ -14,6 +14,8 @@ class UniqContainer<T: Equatable> {
         container.append(newEl)
     }
     
+    
+    // TODO: - рассматривать ситуацию, когда контейнер пустой
     func pop() -> T {
         return container.removeLast()
     }
@@ -28,10 +30,8 @@ func +<T>(firstCont:UniqContainer<T>, secondCont:UniqContainer<T>) -> UniqContai
     return newCont
 }
 
-func +=<T>( inout firstCont:UniqContainer<T>, secondCont:UniqContainer<T>) {
-    for el in secondCont.container {
-        firstCont.push(el)
-    }
+func +=<T>(inout firstCont:UniqContainer<T>, secondCont:UniqContainer<T>) {
+    firstCont = firstCont + secondCont
 }
 
 prefix operator ^^ {
