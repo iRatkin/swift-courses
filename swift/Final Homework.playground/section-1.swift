@@ -63,7 +63,6 @@ class Counter: Life {
 
 class AESCenter: StationControl {
     
-    // TODO: - Без lastWorkers
     var numberOfWorkers: Int = 0 {
         willSet(lastWorkers) {
             if lastWorkers > numberOfWorkers {
