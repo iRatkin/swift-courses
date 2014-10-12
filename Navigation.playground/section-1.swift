@@ -62,9 +62,10 @@ class SideController: ViewController {
     }
     
     func setCenterController(centerViewController: ViewController) {
-        if self.canvas != menuViewCotnroller.canvas {
+        if self.centerViewController != nil {
             self.centerViewController!.canvas.removeFromSuperview() //?? посмотреть и исправить
         }
+        self.centerViewController = centerViewController
         self.canvas.addSubview(centerViewController.canvas)
     }
 }
