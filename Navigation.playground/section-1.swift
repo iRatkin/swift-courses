@@ -34,10 +34,11 @@ class TabBarController: ViewController {
     init(contollers: [ViewController]) {
         self.contollers = contollers
         self.selectedViewCotnroller = contollers.first!
+        //...
     }
     
     func selectViewContoller(index: Int) {
-        
+        //...
     }
 }
 
@@ -50,6 +51,7 @@ class SideController: ViewController {
     
     init(menuViewCotnroller: ViewController) {
         self.menuViewCotnroller = menuViewCotnroller
+        //...
     }
     
     func setCenterController(centerViewController: ViewController) {
