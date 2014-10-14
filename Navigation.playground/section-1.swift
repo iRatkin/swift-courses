@@ -23,22 +23,28 @@ class NavigationController: ViewController {
         var contoller = controllers.removeLast()
         contoller.canvas.removeFromSuperview()
     }
+    
 }
 
 // TODO: - TabBarContoller
 
 class TabBarController: ViewController {
-    var contollers: [ViewController]
+    
+    var controllers: [ViewController] = []
     var selectedViewCotnroller: ViewController
     
-    init(contollers: [ViewController]) {
-        self.contollers = contollers
+    
+     init(contollers: [ViewController]) {
+        self.controllers = contollers
         self.selectedViewCotnroller = contollers.first!
-        //...
+        super.init()
+        self.canvas.addSubview(self.selectedViewCotnroller.canvas)
     }
     
     func selectViewContoller(index: Int) {
-        //...
+        selectedViewCotnroller.canvas.removeFromSuperview()
+        selectedViewCotnroller = controllers[index]
+        self.canvas.addSubview(selectedViewCotnroller.canvas)
     }
 }
 
@@ -51,10 +57,15 @@ class SideController: ViewController {
     
     init(menuViewCotnroller: ViewController) {
         self.menuViewCotnroller = menuViewCotnroller
-        //...
+        super.init()
+        self.canvas.addSubview(self.menuViewCotnroller.canvas)
     }
     
     func setCenterController(centerViewController: ViewController) {
-        //...
+        if self.centerViewController != nil {
+            self.centerViewController!.canvas.removeFromSuperview() //?? посмотреть и исправить
+        }
+        self.centerViewController = centerViewController
+        self.canvas.addSubview(centerViewController.canvas)
     }
 }
